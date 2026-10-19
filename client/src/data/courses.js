@@ -1,0 +1,35 @@
+// Exact data from design_reference/Learn Hub.html — 13 courses
+export const COURSES = [
+  { id: "c1", t: "ISO 9001:2015 Lead Auditor (CQI/IRCA Aligned)", tag: "Quality", dom: "quality", track: "", level: "Advanced · 40 hrs · live cohort", price: "₹14,999", orig: "₹24,999", enr: 3240, rat: 4.9, g: "linear-gradient(135deg,#0073c4,#0096FF,#FF9300)", d: "CQI/IRCA-aligned curriculum with live online sessions, four practical audits and a capstone on a real organisation. Certificate accepted by 200+ employers across India and the GCC." },
+  { id: "c2", t: "ESG Reporting Masterclass: GRI, ESRS & BRSR", tag: "ESG", dom: "esg", track: "", level: "Intermediate · 24 hrs · live Q&A", price: "₹9,999", orig: "₹14,999", enr: 1820, rat: 4.8, g: "linear-gradient(135deg,#0096FF,#2aa6ff,#bfe4ff)", d: "Map any framework to any other and build a board-ready ESG report in four weeks. Includes BRSR Core compliance for Indian listed entities." },
+  { id: "c3", t: "NEBOSH IGC: International General Certificate", tag: "Exam Prep", dom: "safety", track: "exam", level: "Foundational · 80 hrs · hybrid", price: "₹39,999", orig: "₹54,999", enr: 4890, rat: 4.7, g: "linear-gradient(135deg,#FF9300,#d97d00,#7a4500)", d: "Full preparation for NEBOSH IGC Units 1 and 2, with mock exams, an on-site visit and exam-day support. 92% first-attempt pass rate." },
+  { id: "c4", t: "ISO 14001:2015 Internal Auditor", tag: "Internal Auditor", dom: "environment", track: "auditor", level: "Intermediate · 16 hrs · self-paced", price: "₹4,999", orig: null, enr: 1240, rat: 4.6, g: "linear-gradient(135deg,#0096FF,#2aa6ff,#bfe4ff)", d: "Build internal-audit competency for an EMS: practical checklist building, finding writing and opening and closing meeting rehearsal." },
+  { id: "c5", t: "Energy Manager (BEE) Exam Prep", tag: "Exam Prep", dom: "energy", track: "exam", level: "Advanced · 60 hrs · cohort", price: "₹19,999", orig: null, enr: 920, rat: 4.8, g: "linear-gradient(135deg,#07527f,#0096FF,#8fd0ff)", d: "BEE Energy Manager and Auditor exam preparation with paper-wise mock tests, numerical labs and industry visits." },
+
+  { id: "c6", t: "Six Sigma Green Belt: Manufacturing Focus", tag: "Quality", dom: "quality", track: "", level: "Intermediate · 32 hrs · project", price: "₹7,999", orig: null, enr: 2140, rat: 4.7, g: "linear-gradient(135deg,#0096FF,#0073c4,#053a5e)", d: "DMAIC end to end with a real plant project and Minitab walkthroughs. Green Belt project review and certification by an industry assessor." },
+
+  { id: "c7", t: "General Safety Awareness: Workplace Induction", tag: "Awareness", dom: "safety", track: "awareness", level: "Foundational · 3 hrs · certificate", price: "free", orig: '₹4999', enr: 12840, rat: 4.8, g: "linear-gradient(135deg,#FF9300,#d97d00,#7a4500)", d: "The essentials every worker needs on day one: hazard spotting, PPE, emergency response and your right to a safe workplace. Free for everyone." },
+  
+  { id: "c8", t: "Awareness Sessions Pack: Toolbox Talks & Inductions", tag: "Awareness", dom: "safety", track: "awareness", level: "Foundational · 6 hrs · self-paced", price: "₹1,999", orig: null, enr: 4120, rat: 4.6, g: "linear-gradient(135deg,#0096FF,#2aa6ff,#bfe4ff)", d: "A ready-to-run library of QHSE awareness sessions: toolbox talks, inductions and refresher decks you can deliver to your own team tomorrow." },
+  { id: "c9", t: "ISO 9001 Internal Auditor: Practitioner", tag: "Internal Auditor", dom: "quality", track: "auditor", level: "Intermediate · 20 hrs · live clinic", price: "₹4,999", orig: null, enr: 3680, rat: 4.8, g: "linear-gradient(135deg,#0096FF,#0073c4,#053a5e)", d: "Plan, conduct and report internal audits with confidence: checklist building, evidence sampling, NC and OFI calls, and meeting practice." },
+  { id: "c10", t: "ISO 45001 Lead Implementer", tag: "Lead Implementer", dom: "health", track: "implementer", level: "Advanced · 36 hrs · live cohort", price: "₹17,999", orig: "₹24,999", enr: 1480, rat: 4.7, g: "linear-gradient(135deg,#CC2200,#e0431f,#ffc9bd)", d: "Design and roll out an OH&S management system end to end: gap analysis, risk and opportunity, operational controls and management review." },
+  { id: "c11", t: "Waste Management & Circular Economy", tag: "Environment", dom: "environment", track: "", level: "Intermediate · 14 hrs · self-paced", price: "₹6,499", orig: null, enr: 1960, rat: 4.6, g: "linear-gradient(135deg,#0096FF,#2aa6ff,#bfe4ff)", d: "The waste hierarchy in practice, segregation and manifests, hazardous-waste rules, and a circular-economy plan that actually reduces cost." },
+  { id: "c12", t: "Energy Review & ISO 50001 (BEE-aligned)", tag: "Energy", dom: "energy", track: "", level: "Intermediate · 24 hrs · numerical labs", price: "₹8,999", orig: null, enr: 1240, rat: 4.7, g: "linear-gradient(135deg,#07527f,#0096FF,#8fd0ff)", d: "Conduct an energy review, set a baseline and EnPIs, find significant energy uses and build an ISO 50001 action plan. BEE exam-aligned." },
+  { id: "c13", t: "IRCA ISO 9001 Lead Auditor: Exam Preparation", tag: "Exam Prep", dom: "quality", track: "exam", level: "Advanced · 30 hrs · hybrid", price: "₹12,999", orig: "₹18,999", enr: 2240, rat: 4.9, g: "linear-gradient(135deg,#0073c4,#0096FF,#FF9300)", d: "Intensive preparation for the CQI/IRCA-certified Lead Auditor exam: timed mocks, marking-scheme practice and exam-day strategy. 94% first-attempt pass rate." },
+];
+
+export const SYL = {
+  auditor: ["Audit principles & ISO terms", "Planning a risk-based audit programme", "Building checklists from clauses", "Conducting the audit & gathering evidence", "Writing findings: NC vs OFI", "Opening & closing meetings", "Reporting & follow-up"],
+  implementer: ["Context, scope & interested parties", "Gap analysis against the standard", "Risk & opportunity planning", "Designing operational controls", "Documented information & competence", "Internal audit & management review", "Certification readiness"],
+  exam: ["Standard structure & exam format", "Clause-by-clause deep dive", "Marking scheme & command words", "Timed mock paper 1", "Timed mock paper 2", "Common pitfalls & model answers", "Exam-day strategy"],
+  awareness: ["Why QHSE matters on day one", "Spotting common workplace hazards", "PPE: selecting and using it", "Emergency response basics", "Reporting incidents & near-misses", "Your rights and responsibilities"],
+  generic: ["Foundations & key terminology", "Core requirements explained", "Practical tools & templates", "Worked examples from industry", "Implementation workshop", "Assessment & certificate"],
+};
+
+export const REVIEWS = [
+  { q: "Cleared the concepts I struggled with for years. The practical examples made all the difference.", name: "Anil K.", role: "Quality Engineer" },
+  { q: "Well paced and genuinely useful. I applied it at work the same week.", name: "Fatima R.", role: "EHS Officer" },
+  { q: "The mock sessions felt just like the real assessment. Passed comfortably.", name: "Deepak S.", role: "Auditor" },
+];
+
+export function syllabusFor(c) { return SYL[c.track] || SYL.generic; }

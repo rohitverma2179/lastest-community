@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/pages/*": ["src/views/*"],
+      "@/*": ["src/*"],
+      "react-router-dom": ["src/compat/react-router-dom.jsx"]
+    },
+    "jsx": "preserve"
+  },
+  "include": ["next-env.d.ts", "**/*.js", "**/*.jsx"],
+  "exclude": ["node_modules"]
+}

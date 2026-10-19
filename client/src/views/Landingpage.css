@@ -1,0 +1,18 @@
+/* Landingpage.css – minimal scoped overrides; main styling done via globals.css + Tailwind */
+
+/* Ensure the landing page inherits proper line-height for prose sections */
+.legacy-styles-wrapper .prose-lp p {
+  font-size: 15.5px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* FAQ accordion animation */
+.faq-answer-enter {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+.faq-answer-enter.open {
+  max-height: 600px;
+}
