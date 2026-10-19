@@ -24,7 +24,7 @@ export function render(url) {
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
-            <Route path="resources" element={<ResourcesPage />} />
+            <Route path="resources" element={<ResourcesPage />} />  
             <Route path="courses" element={<CoursesPage />} />
             <Route path="contact" element={<ContactPage />} />
             <Route path="blog" element={<BlogListPage />} />
