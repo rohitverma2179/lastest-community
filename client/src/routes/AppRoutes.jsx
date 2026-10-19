@@ -24,6 +24,7 @@ import PortalResourcesPage from '../views/PortalResourcesPage';
 import BlogListPage from '../views/BlogListPage';
 import BlogDetailPage from '../views/BlogDetailPage';
 import Landingpage from '../views/Landingpage';
+import EsgLandingpage from '../views/EsgLandingpage';
 
 import ProtectedRoute from '../components/auth/ProtectedRoute';
 
@@ -43,6 +44,10 @@ export const router = createBrowserRouter([
       {
         path: 'iso-certification-training-india',
         element: <Landingpage />,
+      },
+      {
+        path: 'esg-certification-course-india',
+        element: <EsgLandingpage />,
       },
       {
         path: 'community',

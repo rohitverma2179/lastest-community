@@ -15,6 +15,7 @@ import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import CommunityGuidelinesPage from './pages/CommunityGuidelinesPage';
 import Landingpage from './pages/Landingpage';
+import EsgLandingpage from './views/EsgLandingpage';
 
 export function render(url) {
   return renderToString(
@@ -35,6 +36,7 @@ export function render(url) {
             <Route path="terms" element={<TermsPage />} />
             <Route path="community-guidelines" element={<CommunityGuidelinesPage />} />
             <Route path="iso-certification-training-india" element={<Landingpage />} />
+            <Route path="esg-certification-course-india" element={<EsgLandingpage />} />
           </Route>
         </Routes>
       </MemoryRouter>
