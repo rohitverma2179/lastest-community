@@ -25,6 +25,7 @@ import BlogListPage from '../views/BlogListPage';
 import BlogDetailPage from '../views/BlogDetailPage';
 import Landingpage from '../views/Landingpage';
 import EsgLandingpage from '../views/EsgLandingpage';
+import CertificatePage from '../views/CertificatePage';
 
 import ProtectedRoute from '../components/auth/ProtectedRoute';
 
@@ -121,6 +122,14 @@ export const router = createBrowserRouter([
       {
         path: 'community-guidelines',
         element: <CommunityGuidelinesPage />,
+      },
+      {
+        path: 'verify',
+        element: <CertificatePage />,
+      },
+      {
+        path: 'certificates',
+        element: <CertificatePage />,
       },
     ],
   },

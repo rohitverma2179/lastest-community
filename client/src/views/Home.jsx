@@ -479,7 +479,7 @@ export default function HomePage() {
               <button type="button" className="btn btn-energy hover-btn hover:bg-[#005391] borderhover !px-4 !py-2 !text-[13px] md:!text-[14px] md:!px-5 md:!py-2.5 max-w-[160px] md:max-w-none cursor-pointer relative z-20" onClick={() => nav("/courses")}>Explore Courses</button>
               {/* <button className="btn btn-outline hover-btn text-white" onClick={() => nav("/portal")}>Join Community </button> */}
               <button type="button" className="btn btn-outline hover-btn text-white !px-4 !py-2 !text-[13px] md:!text-[14px] md:!px-5 md:!py-2.5 max-w-[160px] md:max-w-none cursor-pointer relative z-20" onClick={() => nav("/coming-soon")}>Join Community</button>
-            </div>
+            </div> 
             <div className="stats" id="heroStats">
               <div><div className="n">48K+</div><div className="l">Members</div></div>
               <div><div className="n">108</div><div className="l">Courses</div></div>

@@ -38,7 +38,7 @@ export default function NavBar({ active: propActive }) {
     if (path.includes("/courses")) active = "courses";
     else if (path.includes("/resources")) active = "resources";
     else if (path.includes("/community")) active = "community";
-    // else if (path.includes("/about")) active = "about";
+    else if (path.includes("/verify") || path.includes("/certificates")) active = "verify";
     else if (path.includes("/blog")) active = "blog";
     else if (path.includes("/contact")) active = "contact";
   }

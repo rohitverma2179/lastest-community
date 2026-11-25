@@ -67,6 +67,7 @@ export default function Footer() {
             <h5>Company</h5>
             <a href="mailto:eGrowthindai@BexexGlobal.com"> eGrowthindai@BexexGlobal.com</a>
             <a onClick={() => nav("/contact")} style={{ cursor: "pointer" }}>Help &amp; support</a>
+            <a onClick={() => { nav("/verify"); window.scrollTo(0, 0); }} style={{ cursor: "pointer" }}>Certificates</a>
             <a href="https://www.bexexglobal.com" target="_blank" rel="noopener">Bexex Global</a>
           </div>
         </div>
