@@ -1,28 +1,20 @@
 'use client';
 
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 // import NavBar from "../components/shared/NavBar";
 // import Footer from "../components/shared/Footer";
-import api from "../utils/axios";
-const adsimag = "/assets/bghero.png";
+const adsimag = "/assets/bghero.webp";
 
-const resourseBg = "/assets/bghero.png";
+const resourseBg = "/assets/bghero.webp";
 
 const TYPECOL = { PDF: "#CC2200", XLSX: "#1f8a5b", PPTX: "#FF9300", DOCX: "#0096FF", ZIP: "#4A4A4A" };
 
 function ResModal({ r, onClose }) {
-  const nav = useNavigate();
   if (!r) return null;
 
-  const handleAction = () => {
-    const token = localStorage.getItem("eg_token");
-    if (token) {
-      nav("/portal/library");
-    } else {
-      nav("/portal/library?auth=login");
-    }
-  };
+  const isLoggedIn = typeof window !== "undefined" && Boolean(localStorage.getItem("eg_token"));
+  const targetUrl = isLoggedIn ? "/portal/library" : "/portal/library?auth=login";
 
   return (
     <div className="resmodal" style={{ display: "flex" }} onClick={e => { if (e.target === e.currentTarget) onClose(); }}>
@@ -44,8 +36,8 @@ function ResModal({ r, onClose }) {
           <div className="resm-lock">🔒 Sign in to view the full document and download</div>
         </div>
         <div className="resm-cta">
-          <button className="btn btn-energy" onClick={handleAction}>Sign in to download free</button>
-          <button className="btn btn-outline" onClick={handleAction}>Browse full library</button>
+          <Link to={targetUrl} className="btn btn-energy">Sign in to download free</Link>
+          <Link to={targetUrl} className="btn btn-outline">Browse full library</Link>
         </div>
         <div className="resm-note">Free forever. Uploaded by a community member. eGrowth does not pre-review uploads, so review before use in your workplace.</div>
       </div>
@@ -54,15 +46,16 @@ function ResModal({ r, onClose }) {
 }
 
 export default function ResourcesPage() {
-  const [filter, setFilter] = useState("all");
+  const location = useLocation();
+  const initialFilter = new URLSearchParams(location.search).get("f") || "all";
+  const [filter, setFilter] = useState(initialFilter);
   const [q, setQ] = useState("");
   const [sort, setSort] = useState("popular");
   const [modal, setModal] = useState(null);
-  const [resources, setResources] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [resources] = useState([]);
+  const [loading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const nav = useNavigate();
 
   const SORT_OPTIONS = [
     { value: "popular", label: "Most downloaded" },
@@ -82,31 +75,6 @@ export default function ResourcesPage() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
-
-  const handleAuthAction = () => {
-    const token = localStorage.getItem("eg_token");
-    if (token) {
-      nav("/portal/library");
-    } else {
-      nav("/portal/library?auth=login");
-    }
-  };
-
-  useEffect(() => {
-    const fetchResources = async () => {
-      try {
-        const res = await api.get("/resources");
-        if (res.data && res.data.resources) {
-          setResources(res.data.resources);
-        }
-      } catch (err) {
-        console.error("Error fetching resources:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchResources();
   }, []);
 
   const list = resources
@@ -135,6 +103,7 @@ export default function ResourcesPage() {
 
   return (
     <>
+      <link rel="preload" as="image" href="/assets/bghero.webp" fetchPriority="high" />
       {/* <NavBar active="resources" /> */}
 
       <section className="hero page-hero" style={{  backgroundImage: `url(${resourseBg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
@@ -175,6 +144,7 @@ export default function ResourcesPage() {
                 type="button" 
                 className="custom-select-trigger" 
                 onClick={() => setIsOpen(!isOpen)}
+                aria-expanded={isOpen}
               >
                 <span>{selectedOption.label}</span>
                 <span className={`custom-select-arrow ${isOpen ? 'open' : ''}`}>
@@ -205,7 +175,18 @@ export default function ResourcesPage() {
 
         <div className="filters" id="resFilters">
           {[{ f: "all", l: "All" }, { f: "quality", l: "Quality" }, { f: "safety", l: "Safety" }, { f: "health", l: "Health" }, { f: "environment", l: "Environment" }, { f: "energy", l: "Energy" }, { f: "esg", l: "ESG" }].map(({ f, l }) => (
-            <span key={f} className={`chip${filter === f ? " active" : ""}`} onClick={() => setFilter(f)}>{l}</span>
+            <a
+              key={f}
+              href={f === "all" ? "/resources" : `/resources?f=${f}`}
+              className={`chip${filter === f ? " active" : ""}`}
+              style={{ textDecoration: "none" }}
+              onClick={(e) => {
+                e.preventDefault();
+                setFilter(f);
+              }}
+            >
+              {l}
+            </a>
           ))}
         </div>
 
@@ -254,7 +235,7 @@ export default function ResourcesPage() {
               <div className="cta">
                 {/* <button className="btn btn-energy" onClick={handleAuthAction}>Upload a resource</button> */}
                 {/* <button className="btn btn-light" onClick={handleAuthAction}>Open full library</button> */}
-                <button className="btn btn-light" >Open full library</button>
+                <Link to="/coming-soon" className="btn btn-light">Open full library</Link>
               </div>
             </div>
             <div className="panel">

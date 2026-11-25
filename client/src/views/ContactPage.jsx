@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 // import NavBar from "../components/shared/NavBar";
 // import Footer from "../components/shared/Footer";
-const ContactHero = "/assets/bghero.png";
-const FaqImage = "/assets/FAQ.png";
+const ContactHero = "/assets/bghero.webp";
+const FaqImage = "/assets/FAQ.webp";
 const YouTubeIcon = "/assets/socialMediaIcons/Group (1).png";
 const InstagramIcon = "/assets/socialMediaIcons/Group (2).png";
 const LinkedInIcon = "/assets/socialMediaIcons/Group (3).png";
@@ -38,7 +37,6 @@ const FAQS = [
 export default function ContactPage() {
   const [sent, setSent] = useState(false);
   const [cbTime, setCbTime] = useState(false);
-  const nav = useNavigate();
 
   const [openIndex, setOpenIndex] = useState(0);
 
@@ -48,6 +46,7 @@ export default function ContactPage() {
 
   return (
     <>
+      <link rel="preload" as="image" href="/assets/bghero.webp" fetchPriority="high" />
       {/* <NavBar active="contact" /> */}
 
       <section className="hero page-hero" style={{ background: `url(${ContactHero}) right center/cover no-repeat` }} >
@@ -70,34 +69,34 @@ export default function ContactPage() {
             ) : (
               <form onSubmit={e => { e.preventDefault(); setSent(true); }}>
                 <div className="contact-form-row">
-                  <div className="field"><label>Full name</label><input required placeholder="Your name" /></div>
-                  <div className="field"><label>Email</label><input type="email" required placeholder="you@example.com" /></div>
+                  <div className="field"><label htmlFor="contact-name">Full name</label><input id="contact-name" required placeholder="Your name" /></div>
+                  <div className="field"><label htmlFor="contact-email">Email</label><input id="contact-email" type="email" required placeholder="you@example.com" /></div>
                 </div>
                 <div className="contact-form-row">
-                  <div className="field"><label>Designation</label><input placeholder="e.g. HSE Manager" /></div>
-                  <div className="field"><label>Company / Organisation</label><input placeholder="Your company" /></div>
+                  <div className="field"><label htmlFor="contact-designation">Designation</label><input id="contact-designation" placeholder="e.g. HSE Manager" /></div>
+                  <div className="field"><label htmlFor="contact-company">Company / Organisation</label><input id="contact-company" placeholder="Your company" /></div>
                 </div>
                 <div className="contact-form-row">
                   <div className="field">
-                    <label>Category</label>
-                    <select defaultValue=""><option value="" disabled>Select a Category</option>{["Quality", "Environment", "Health", "Safety", "Welfare", "Energy", "ESG", "Sustainability",].map(d => <option key={d}>{d}</option>)}</select>
+                    <label htmlFor="contact-category">Category</label>
+                    <select id="contact-category" defaultValue=""><option value="" disabled>Select a Category</option>{["Quality", "Environment", "Health", "Safety", "Welfare", "Energy", "ESG", "Sustainability",].map(d => <option key={d}>{d}</option>)}</select>
                   </div>
-                  <div className="field"><label>Phone No.  </label><input placeholder="+91" /></div>
+                  <div className="field"><label htmlFor="contact-phone">Phone No.  </label><input id="contact-phone" placeholder="+91" /></div>
                 </div>
                 <div className="field">
-                  <label>Enquiry type</label>
-                  <select>{["Course enquiry", "Corporate / group training", "Partnership", "Community support", "Other"].map(t => <option key={t}>{t}</option>)}</select>
+                  <label htmlFor="contact-enquiry">Enquiry type</label>
+                  <select id="contact-enquiry">{["Course enquiry", "Corporate / group training", "Partnership", "Community support", "Other"].map(t => <option key={t}>{t}</option>)}</select>
                 </div>
                 <label style={{ display: "flex", alignItems: "center", gap: 8, fontSize: "13.5px", color: "var(--ink-2)", marginBottom: 12, cursor: "pointer" }}>
                   <input type="checkbox" onChange={e => setCbTime(e.target.checked)} /> Request a callback instead
                 </label>
                 {cbTime && (
                   <div className="field">
-                    <label>Preferred time</label>
-                    <select><option>Morning (09:00–12:00 IST)</option><option>Afternoon (12:00–15:00 IST)</option><option>Evening (15:00–17:30 IST)</option></select>
+                    <label htmlFor="contact-time">Preferred time</label>
+                    <select id="contact-time"><option>Morning (09:00–12:00 IST)</option><option>Afternoon (12:00–15:00 IST)</option><option>Evening (15:00–17:30 IST)</option></select>
                   </div>
                 )}
-                <div className="field"><label>Message</label><textarea rows={5} required placeholder="How can we help?"></textarea></div>
+                <div className="field"><label htmlFor="contact-message">Message</label><textarea id="contact-message" rows={5} required placeholder="How can we help?"></textarea></div>
                 <button className="btn btn-energy" type="submit">Send enquiry →</button>
               </form>
             )}
@@ -106,8 +105,8 @@ export default function ContactPage() {
           {/* Contact details */}
           <aside>
             <div className="sec-head" style={{ marginBottom: 14 }}><h2 style={{ fontSize: 24 }}>Reach us</h2></div>
-            <div className="info-row"><div className="ic">✉️</div><div><div style={{ fontWeight: 600, fontSize: 14 }}>Email</div><a href="mailto:eGrowthIndia@BexexGlobal.com" style={{ color: "var(--teal)", fontSize: 14, wordBreak: "break-all" }}>eGrowthIndia@BexexGlobal.com</a></div></div>
-            <div className="info-row"><div className="ic">📞</div><div><div style={{ fontWeight: 600, fontSize: 14 }}>Phone</div><a href="tel:+919582390987" style={{ color: "var(--teal)", fontSize: 14 }}>+91 9582390987</a></div></div>
+            <div className="info-row"><div className="ic">✉️</div><div><div style={{ fontWeight: 600, fontSize: 14 }}>Email</div><a href="mailto:eGrowthIndia@BexexGlobal.com" style={{ color: "#0069B8", fontSize: 14, wordBreak: "break-all" }}>eGrowthIndia@BexexGlobal.com</a></div></div>
+            <div className="info-row"><div className="ic">📞</div><div><div style={{ fontWeight: 600, fontSize: 14 }}>Phone</div><a href="tel:+919582390987" style={{ color: "#0069B8", fontSize: 14 }}>+91 9582390987</a></div></div>
             <div className="info-row"><div className="ic">📍</div><div><div style={{ fontWeight: 600, fontSize: 14 }}>Head Office</div><span style={{ color: "var(--muted)", fontSize: 14, wordBreak: "break-word" }}> Plot No. 2-A,
 
               Ground Floor, Jai Vihar,
@@ -121,10 +120,10 @@ export default function ContactPage() {
 
               New Delhi - 110041<br /> </span></div></div>
             <div className="contact-action-btns">
-              <a className="btn btn-energy" style={{ flex: 1, justifyContent: "center" }} href="https://wa.me/919582390987" target="_blank" rel="noopener">💬 Chat on WhatsApp</a>
-              <a className="btn btn-outline btn-light" style={{ flex: 1, justifyContent: "center" }} href="https://maps.app.goo.gl/g4RxxBXibXUs5gC36" target="_blank" rel="noopener">📍 Get directions</a>
+              <a className="btn btn-energy" style={{ flex: 1, justifyContent: "center" }} href="https://wa.me/919582390987" target="_blank" rel="noopener noreferrer">💬 Chat on WhatsApp</a>
+              <a className="btn btn-outline btn-light" style={{ flex: 1, justifyContent: "center" }} href="https://maps.app.goo.gl/g4RxxBXibXUs5gC36" target="_blank" rel="noopener noreferrer">📍 Get directions</a>
             </div>
-            <iframe className="map" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
+            <iframe className="map" title="eGrowth India Office Location" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3697.8786665699927!2d77.00215931115876!3d28.635348683851063!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x597991a7d26f45d%3A0xb5cbced8c1ea2bf5!2sSwastixa%20Digital!5e1!3m2!1sen!2sin!4v1784100139181!5m2!1sen!2sin"
               style={{ width: "100%", height: 240, border: 0, borderRadius: "var(--r)", marginTop: 18, maxWidth: "100%" }} />
           </aside>
@@ -169,6 +168,10 @@ export default function ContactPage() {
             <img
               src={FaqImage}
               alt="Frequently asked questions illustration"
+              width={560}
+              height={360}
+              loading="lazy"
+              decoding="async"
             />
           </div>
         </div>
@@ -184,9 +187,9 @@ export default function ContactPage() {
           </div>
           <div className="qr-grid">
             {QR_CARDS.map((c, index) => (
-              <a key={c.label} className="qr-card" href={c.href} target="_blank" rel="noopener">
-                <img src={c.qr} alt={`${c.label} QR`} loading="lazy" style={{ width: 130, height: 130, borderRadius: 10, display: "block" }} />
-                <img className="qr-social-icon" src={SOCIAL_ICONS[index]} alt="" aria-hidden="true" />
+              <a key={c.label} className="qr-card" href={c.href} target="_blank" rel="noopener noreferrer">
+                <img src={c.qr} alt={`${c.label} QR`} width={130} height={130} loading="lazy" decoding="async" style={{ width: 130, height: 130, borderRadius: 10, display: "block" }} />
+                <img className="qr-social-icon" src={SOCIAL_ICONS[index]} alt="" aria-hidden="true" width={32} height={32} loading="lazy" decoding="async" />
                 <b>{c.label}</b>
                 <small>{c.sub}</small>
               </a>

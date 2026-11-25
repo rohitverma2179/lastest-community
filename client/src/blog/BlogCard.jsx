@@ -6,6 +6,10 @@ export default function BlogCard({ blog }) {
   if (!blog) return null;
 
   const imageUrl = blog.image || blog.hero?.image;
+  const cardImageUrl =
+    imageUrl === "/assets/blog/iso-certification-training-india.webp"
+      ? "/assets/blog/iso-certification-training-india-card.webp"
+      : imageUrl;
   const title =
     blog.hero?.metaTitle || blog.hero?.title || blog.hero?.subtitle || blog.title;
   const description = blog.hero?.description || blog.excerpt;
@@ -23,7 +27,11 @@ export default function BlogCard({ blog }) {
         className="block relative overflow-hidden aspect-[16/10] bg-gray-100"
       >
         <img
-          src={imageUrl}
+          src={cardImageUrl}
+          width={640}
+          height={357}
+          decoding="async"
+          fetchPriority="high"
           alt={title}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
         />
@@ -36,9 +44,9 @@ export default function BlogCard({ blog }) {
       <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
         <div>
           <Link to={`/blog/${blog.slug}`}>
-            <h3 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-[#0096FF] transition-colors leading-snug line-clamp-2 mb-3 cursor-pointer">
+            <h2 className="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-[#0069B8] transition-colors leading-snug line-clamp-2 mb-3 cursor-pointer">
               {title}
-            </h3>
+            </h2>
           </Link>
           {description && (
             <p className="text-gray-600 text-sm mt-2 leading-relaxed line-clamp-3 mb-5">
@@ -60,10 +68,10 @@ export default function BlogCard({ blog }) {
 
           <Link
             to={`/blog/${blog.slug}`}
-            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#0096FF] group-hover:text-[#0096FF] transition-colors"
+            className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold text-[#0069B8] group-hover:text-[#0069B8] transition-colors"
           >
             <span>Read Article</span>
-            <div className="w-7 h-7 rounded-full bg-blue-50 text-[#0096FF] group-hover:bg-[#0096FF] group-hover:text-white flex items-center justify-center transition-colors duration-200">
+            <div className="w-7 h-7 rounded-full bg-blue-50 text-[#0069B8] group-hover:bg-[#0069B8] group-hover:text-white flex items-center justify-center transition-colors duration-200">
               <ArrowUpRight className="w-3.5 h-3.5" />
             </div>
           </Link>

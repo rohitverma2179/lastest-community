@@ -1,9 +1,7 @@
-import { useNavigate } from "react-router-dom";
-const adsimag = "/assets/bghero.png";
-
+import { Link } from "react-router-dom";
+const adsimag = "/assets/bghero.webp";
 
 export default function CommunityJoinBand() {
-  const nav = useNavigate();
   return (
     <section className="wrap" style={{ paddingBottom:40 }}>
       <div className="band" style={{  backgroundImage: `url(${adsimag})`, backgroundSize: "cover", backgroundPosition: "center" }}>
@@ -13,7 +11,7 @@ export default function CommunityJoinBand() {
           {/* <button className="btn btn-energy" onClick={() => nav("/login")}>Create a free account</button> */}
           {/* <button className="btn btn-energy" onClick={() => nav("#")}>Create a free account</button> */}
           {/* <button className="btn btn-light" onClick={() => nav("/portal")}>Enter community</button> */}
-          <button className="btn btn-light" onClick={() => nav("/coming-soon")}>Enter community</button>
+          <Link to="/coming-soon" className="btn btn-light">Enter community</Link>
         </div>
       </div>
     </section>

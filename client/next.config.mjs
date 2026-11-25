@@ -12,6 +12,9 @@ const nextConfig = {
     unoptimized: true,
   },
   reactStrictMode: false,
+  experimental: {
+    inlineCss: true,
+  },
   webpack: (config) => {
     config.resolve.alias = {
       ...config.resolve.alias,

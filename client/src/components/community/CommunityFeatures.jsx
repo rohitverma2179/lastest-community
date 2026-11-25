@@ -1,9 +1,9 @@
-const comm1 = "/assets/communityicons/comm1.png";
-const comm2 = "/assets/communityicons/comm2.png";
-const comm3 = "/assets/communityicons/comm3.png";
-const comm4 = "/assets/communityicons/comm4.png";
-const comm5 = "/assets/communityicons/comm5.png";
-const comm6 = "/assets/communityicons/comm6.png";
+const comm1 = "/assets/communityicons/comm1.webp";
+const comm2 = "/assets/communityicons/comm2.webp";
+const comm3 = "/assets/communityicons/comm3.webp";
+const comm4 = "/assets/communityicons/comm4.webp";
+const comm5 = "/assets/communityicons/comm5.webp";
+const comm6 = "/assets/communityicons/comm6.webp";
 
 const FEATURES = [
   { ic: comm1, h: "Ask & answer", p: "Get practical answers from real practitioners across quality, safety, environment, energy and ESG." },
@@ -47,7 +47,7 @@ export default function CommunityFeatures() {
       {FEATURES.map((service) => (
         <div key={service.h} className="tile service-tile">
           <div className="ic" aria-hidden="true">
-            <img src={service.ic} alt={service.h} />
+            <img src={service.ic} alt={service.h} width={48} height={48} loading="lazy" decoding="async" />
           </div>
 
           <div className="service-tile-content">

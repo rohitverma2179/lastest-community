@@ -1,4 +1,4 @@
-const isoBlogImage = "/assets/blog/iso-certification-training-india.png";
+const isoBlogImage = "/assets/blog/iso-certification-training-india.webp";
 
 export const BLOGS = [
   {

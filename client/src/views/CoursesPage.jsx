@@ -1,14 +1,14 @@
 'use client';
 
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 // import NavBar from "../components/shared/NavBar";
 // import Footer from "../components/shared/Footer";
 import { COURSES, SYL, REVIEWS, syllabusFor } from "../data/courses";
-const courseBg = "/assets/bghero.png";
-const adsimag = "/assets/bghero.png";
-const adsbg = "/assets/bghero.png";
-const heroBg = "/assets/bghero.png";
+const courseBg = "/assets/bghero.webp";
+const adsimag = "/assets/bghero.webp";
+const adsbg = "/assets/bghero.webp";
+const heroBg = "/assets/bghero.webp";
 
 // Import course images
 const courseMeeting = "/assets/courses/course_meeting.png";
@@ -62,7 +62,6 @@ function sortCourses(list, sort) {
 }
 
 function CourseDetail({ c, onBack }) {
-  const nav = useNavigate();
   const [openFaqIndex, setOpenFaqIndex] = useState(0);
   const syl = syllabusFor(c);
   const outcomes = [
@@ -79,7 +78,17 @@ function CourseDetail({ c, onBack }) {
   return (
     <>
       <div className="cd-hero" style={{ backgroundImage: `url(${heroBg})`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
-        <a className="cd-back" onClick={onBack} style={{ cursor: "pointer" }}>← All courses</a>
+        <a
+          href="/courses"
+          className="cd-back"
+          onClick={(e) => {
+            e.preventDefault();
+            onBack();
+          }}
+          style={{ cursor: "pointer" }}
+        >
+          ← All courses
+        </a>
         <span className="tag" style={{ position: "relative", alignSelf: "flex-start" }}>{c.tag}</span>
         <h1 className="text-white-course">{c.t}</h1>
         {/* <div className="cd-meta">⭐ {c.rat.toFixed(1)} · {c.enr.toLocaleString()} enrolled · {c.level}</div> */}
@@ -163,12 +172,12 @@ function CourseDetail({ c, onBack }) {
               : <span className="price" style={{ fontSize: 26 }}>{c.price}{c.orig && <s>{c.orig}</s>}</span>
             }
             <div className="cd-sub">{c.price === "Free" ? "Open to everyone · certificate included" : "or unlock with Merit · loyalty bonus on enrol"}</div>
-            <button className="btn btn-energy" style={{ width: "100%", justifyContent: "center", marginTop: 6 }} onClick={() => nav("/login")}>
+            <Link to="/login" className="btn btn-energy" style={{ width: "100%", justifyContent: "center", marginTop: 6 }}>
               {c.price === "Free" ? "Start free →" : "Enrol now →"}
-            </button>
-            <button className="btn btn-outline btn-light" style={{ width: "100%", justifyContent: "center", marginTop: 10 }} onClick={() => nav("/contact")}>
+            </Link>
+            <Link to="/contact" className="btn btn-outline btn-light" style={{ width: "100%", justifyContent: "center", marginTop: 10 }}>
               Request in-house training
-            </button>
+            </Link>
             <ul className="cd-incl">
               <li>✓ Recognised certificate</li>
               <li>✓ Templates &amp; checklists</li>
@@ -183,14 +192,14 @@ function CourseDetail({ c, onBack }) {
 }
 
 export default function CoursesPage() {
-  const [filter, setFilter] = useState("all");
+  const location = useLocation();
+  const initialFilter = new URLSearchParams(location.search).get("f") || "all";
+  const [filter, setFilter] = useState(initialFilter);
   const [q, setQ] = useState("");
   const [sort, setSort] = useState("popular");
   const [detail, setDetail] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
-  // eslint-disable-next-line no-unused-vars
-  const nav = useNavigate();
 
   const SORT_OPTIONS = [
     { value: "popular", label: "Most popular" },
@@ -232,7 +241,7 @@ export default function CoursesPage() {
             <div className="cta">
               {/* <button className="btn btn-energy" onClick={() => nav("#")}>Create a free account</button> */}
               {/* <button className="btn btn-light btn-white " onClick={() => nav("/portal/learn")}>Enter community</button> */}
-              <button className="btn btn-light btn-white ">Enter community</button>
+              <Link to="/coming-soon" className="btn btn-light btn-white ">Enter community</Link>
             </div>
           </div>
         </section>
@@ -243,6 +252,7 @@ export default function CoursesPage() {
 
   return (
     <>
+      <link rel="preload" as="image" href="/assets/bghero.webp" fetchPriority="high" />
       {/* <NavBar active="courses" /> */}
 
       <section className="hero page-hero" style={{ backgroundImage: `url(${courseBg})`, backgroundSize: "cover", backgroundPosition: "center" }}>
@@ -277,6 +287,7 @@ export default function CoursesPage() {
                 type="button"
                 className="custom-select-trigger"
                 onClick={() => setIsOpen(!isOpen)}
+                aria-expanded={isOpen}
               >
                 <span>{selectedOption.label}</span>
                 <span className={`custom-select-arrow ${isOpen ? 'open' : ''}`}>
@@ -307,7 +318,18 @@ export default function CoursesPage() {
 
         <div className="filters" id="filters">
           {FILTERS.map(({f,label})=>(
-            <span key={f} className={`chip${filter===f?" active":""}`} onClick={()=>setFilter(f)}>{label}</span>
+            <a
+              key={f}
+              href={f === "all" ? "/courses" : `/courses?f=${f}`}
+              className={`chip${filter===f?" active":""}`}
+              style={{ textDecoration: "none" }}
+              onClick={(e) => {
+                e.preventDefault();
+                setFilter(f);
+              }}
+            >
+              {label}
+            </a>
           ))}
         </div>
       <div className="flex flex-col justify-center items-center py-24 text-center">
@@ -324,7 +346,7 @@ export default function CoursesPage() {
           <p>Enrol once and the course appears in your Learn Hub dashboard, synced with your profile, certificates, and Merit. Browsing here stays open to everyone.</p>
           <div className="cta">
             
-            <button className="btn btn-light" onClick={() => nav("/coming-soon")}>Enter community</button>
+            <Link to="/coming-soon" className="btn btn-light">Enter community</Link>
           </div>
         </div>
       </section>

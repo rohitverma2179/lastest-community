@@ -24,22 +24,22 @@ export function useOutletContext() {
   return useContext(OutletContext);
 }
 
-export const Link = forwardRef(function Link({ to, href, children, ...props }, ref) {
+export const Link = forwardRef(function Link({ to, href, prefetch = false, children, ...props }, ref) {
   const destination = to || href || '#';
   return (
-    <NextLink ref={ref} href={destination} {...props}>
+    <NextLink ref={ref} href={destination} prefetch={prefetch} {...props}>
       {children}
     </NextLink>
   );
 });
 
-export const NavLink = forwardRef(function NavLink({ to, href, className, children, ...props }, ref) {
+export const NavLink = forwardRef(function NavLink({ to, href, prefetch = false, className, children, ...props }, ref) {
   const destination = to || href || '#';
   const pathname = usePathname();
   const isActive = pathname === destination;
   const computedClass = typeof className === 'function' ? className({ isActive }) : className;
   return (
-    <NextLink ref={ref} href={destination} className={computedClass} {...props}>
+    <NextLink ref={ref} href={destination} prefetch={prefetch} className={computedClass} {...props}>
       {typeof children === 'function' ? children({ isActive }) : children}
     </NextLink>
   );

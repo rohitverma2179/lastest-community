@@ -8,7 +8,7 @@ const TESTIS = [
     av: "KK",
     name: "Kaushal Kishore Sharma",
     role: "Sr Engineer, Mines Operation · UltraTech Cement Limited",
-    bg: "#0096FF"
+    bg: "#0069B8"
   },
   {
     q: "Gained clarity on the difference between correction and corrective action, and how weak root cause analysis leads to repeat issues.",
@@ -17,7 +17,7 @@ const TESTIS = [
     av: "SU",
     name: "Shivam Kumar Upadhyay",
     role: "Section Head-ER · UltraTech Cement (Maihar)",
-    bg: "#FF9300"
+    bg: "#B85500"
   },
   {
     q: "The examples used were simple and helped him grasp concepts quickly.",
@@ -44,7 +44,7 @@ const TESTIS = [
     av: "RM",
     name: "Ravendra Kumar Mishra",
     role: "Engineer, E&I · Maihar Cement Works (UTCL)",
-    bg: "#0096FF"
+    bg: "#0069B8"
   },
   {
     q: "Appreciated the clear explanation of ISO 9001, 14001, 45001, 19011, and the newer clause changes.",
@@ -53,7 +53,7 @@ const TESTIS = [
     av: "MN",
     name: "Monika Nishad",
     role: "Junior Engineer · Maihar Cement Works",
-    bg: "#FF9300"
+    bg: "#B85500"
   },
   {
     q: "Every topic was explained with strong clarity.",
@@ -80,7 +80,7 @@ const TESTIS = [
     av: "BP",
     name: "Bipin Pratap Patel",
     role: "Deputy Manager · Indorama India Pvt Ltd",
-    bg: "#0096FF"
+    bg: "#0069B8"
   },
   {
     q: "Real plant scenarios in the audit examples made ISO concepts click.",
@@ -89,7 +89,7 @@ const TESTIS = [
     av: "SV",
     name: "Simant Raj Vishwakarma",
     role: "Assistant Manager · Indorama India Pvt Ltd",
-    bg: "#FF9300"
+    bg: "#B85500"
   },
   {
     q: "Understood the role audits play in strengthening overall process discipline.",
@@ -116,7 +116,7 @@ const TESTIS = [
     av: "VN",
     name: "Vivak Kumar Niranjan",
     role: "Assistant Manager · Maihar Cement Works",
-    bg: "#0096FF"
+    bg: "#0069B8"
   },
   {
     q: "Found the ISO-based examples helpful.",
@@ -125,7 +125,7 @@ const TESTIS = [
     av: "RM",
     name: "Rajnish Mishra",
     role: "Assistant Manager · Ultratech Cement, Shahjahanpur",
-    bg: "#FF9300"
+    bg: "#B85500"
   },
   {
     q: "Overall a strong learning experience.",
@@ -152,7 +152,7 @@ const TESTIS = [
     av: "OP",
     name: "Om Pathak",
     role: "Internal Auditor · Maihar Cement Works",
-    bg: "#0096FF"
+    bg: "#0069B8"
   },
   {
     q: "Understood how ISO 9001, 14001, and 45001 come together into one integrated system.",
@@ -161,7 +161,7 @@ const TESTIS = [
     av: "KK",
     name: "Kishor Kunal",
     role: "AGM, GE & Inspection · Indorama India Pvt Ltd",
-    bg: "#FF9300"
+    bg: "#B85500"
   },
   {
     q: "Case-specific examples gave clear direction on how the audit process works.",
@@ -202,16 +202,22 @@ export default function MemberSpotlights() {
 
     handleTestiScroll();
 
-    const interval = setInterval(() => {
-      const maxScrollLeft = el.scrollWidth - el.clientWidth;
-      if (el.scrollLeft >= maxScrollLeft - 10) {
-        el.scrollTo({ left: 0, behavior: "smooth" });
-      } else {
-        el.scrollBy({ left: 364, behavior: "smooth" });
-      }
+    let interval;
+    const timeout = setTimeout(() => {
+      interval = setInterval(() => {
+        const maxScrollLeft = el.scrollWidth - el.clientWidth;
+        if (el.scrollLeft >= maxScrollLeft - 10) {
+          el.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          el.scrollBy({ left: 364, behavior: "smooth" });
+        }
+      }, 4000);
     }, 3000);
 
-    return () => clearInterval(interval);
+    return () => {
+      clearTimeout(timeout);
+      if (interval) clearInterval(interval);
+    };
   }, []);
 
   return (
@@ -223,16 +229,20 @@ export default function MemberSpotlights() {
           </div>
           <div className="rec-nav-btns">
             <button
+              type="button"
               onClick={() => testiRef.current?.scrollBy({ left: -364, behavior: "smooth" })}
               className={`circle-nav-btn prev ${canScrollLeft ? "active" : "inactive"}`}
               disabled={!canScrollLeft}
+              aria-label="Previous reviews"
             >
               ‹
             </button>
             <button
+              type="button"
               onClick={() => testiRef.current?.scrollBy({ left: 364, behavior: "smooth" })}
               className={`circle-nav-btn next ${canScrollRight ? "active" : "inactive"}`}
               disabled={!canScrollRight}
+              aria-label="Next reviews"
             >
               ›
             </button>

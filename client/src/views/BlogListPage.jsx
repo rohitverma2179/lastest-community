@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { getBlogs } from "../data/blog";
 import BlogGrid from "../blog/BlogGrid";
-const resourseBg = "/assets/bghero.png";
+const resourseBg = "/assets/bghero.webp";
 
 export default function BlogListPage() {
   const blogs = getBlogs();
@@ -17,6 +17,7 @@ export default function BlogListPage() {
 
   return (
     <div className="min-h-screen bg-white text-black pb-20">
+      <link rel="preload" as="image" href="/assets/bghero.webp" fetchPriority="high" />
       {/* Header Hero Banner matching project design */}
       <section
         className="hero page-hero"
