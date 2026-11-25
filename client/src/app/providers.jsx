@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Provider, useDispatch } from 'react-redux';
-import { Toaster } from 'react-hot-toast';
 import { store } from '@/redux/store';
 import { fetchCurrentUser } from '@/features/auth/user.thunk';
 
@@ -21,12 +20,26 @@ function AuthInit({ children }) {
   return children;
 }
 
+function LazyToaster() {
+  const [ToasterComp, setToasterComp] = useState(null);
+
+  useEffect(() => {
+    let active = true;
+    import('react-hot-toast').then((mod) => {
+      if (active) setToasterComp(() => mod.Toaster);
+    });
+    return () => { active = false; };
+  }, []);
+
+  return ToasterComp ? <ToasterComp position="top-right" /> : null;
+}
+
 export function Providers({ children }) {
   return (
     <Provider store={store}>
       <AuthInit>
         {children}
-        <Toaster position="top-right" />
+        <LazyToaster />
       </AuthInit>
     </Provider>
   );

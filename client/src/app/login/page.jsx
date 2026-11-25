@@ -1,7 +1,12 @@
 'use client';
 
+import { Providers } from '@/app/providers';
 import AuthPage from '@/pages/AuthPage';
 
 export default function Page() {
-  return <AuthPage mode="login" />;
+  return (
+    <Providers>
+      <AuthPage mode="login" />
+    </Providers>
+  );
 }

@@ -3,6 +3,7 @@ import { createRoot, hydrateRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import store from './redux/store.js'
 import './index.css'
+import './styles/portal.css'
 import App from './App.jsx'
 
 const container = document.getElementById('root');

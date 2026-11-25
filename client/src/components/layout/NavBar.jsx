@@ -1,28 +1,22 @@
 import React, { useState } from "react";
 import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../features/auth/user.slice";
-const logo = "/assets/egrowth-logo.png";
+const logo = "/assets/egrowth-logo.webp";
 
 export default function NavBar({ active: propActive }) {
   const nav = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state) => state.user);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [coursesExpanded, setCoursesExpanded] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
+  const closeMenu = () => {
+    setMobileMenuOpen(false);
+  };
+
   const go = (p) => {
     setMobileMenuOpen(false);
     nav(p);
-  };
-
-  const handleLogout = () => {
-    dispatch(logout());
-    setMobileMenuOpen(false);
-    nav("/");
   };
 
   const handleSearchSubmit = (e) => {
@@ -48,12 +42,22 @@ export default function NavBar({ active: propActive }) {
       <header className="bar sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-xs">
         <div className="wrap bar-in flex items-center justify-between gap-3 px-4 py-2.5 max-w-7xl mx-auto">
           {/* Logo */}
-          <a className="logo cursor-pointer shrink-0 select-none flex items-center justify-center my-auto" onClick={() => go("/")}>
-            <img src={logo} alt="eGrowth India" className="h-7 sm:h-8 w-auto object-contain my-auto" />
-          </a>
+          <Link to="/" onClick={closeMenu} className="logo cursor-pointer shrink-0 select-none flex items-center justify-center my-auto">
+            <img
+              src="/assets/egrowth-logo-192.webp"
+              srcSet="/assets/egrowth-logo-192.webp 192w, /assets/egrowth-logo.webp 320w"
+              sizes="(max-width: 639px) 164px, 187px"
+              alt="eGrowth India"
+              width={320}
+              height={48}
+              loading="eager"
+              decoding="async"
+              className="h-7 sm:h-8 w-auto object-contain my-auto"
+            />
+          </Link>
 
           {/* Desktop Nav - Mega Menu */}
-          <nav className="menu hidden lg:flex items-center gap-6">
+          <nav className="menu hidden lg:flex items-center gap-6" aria-label="Main navigation">
             <div className="dropdown relative group">
               <Link to="/courses" className={`dd-trigger font-medium text-[14px] text-gray-700 hover:text-blue-600 transition-colors ${active === "courses" ? "text-blue-600 font-semibold" : ""}`}>
                 Courses ▾
@@ -61,30 +65,30 @@ export default function NavBar({ active: propActive }) {
               <div className="dd-mega hidden group-hover:grid grid-cols-3 gap-6 absolute top-full left-0 w-[650px] bg-white border border-gray-100 rounded-xl p-5 shadow-xl z-50">
                 <div className="col flex flex-col gap-1.5">
                   <h6 className="text-[11px] font-bold text-blue-600 uppercase tracking-wider mb-1">By Standard (ISO)</h6>
-                  <a onClick={() => go("/courses?q=9001")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">ISO 9001 · Quality</a>
-                  <a onClick={() => go("/courses?q=14001")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">ISO 14001 · Environment</a>
-                  <a onClick={() => go("/courses?q=45001")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">ISO 45001 · Safety</a>
-                  <a onClick={() => go("/courses?q=50001")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">ISO 50001 · Energy</a>
-                  <a onClick={() => go("/courses?q=22000")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">ISO 22000 · Food Safety</a>
-                  <a onClick={() => go("/courses?q=iatf")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">IATF 16949 · Automotive</a>
+                  <Link to="/courses?q=9001" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">ISO 9001 · Quality</Link>
+                  <Link to="/courses?q=14001" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">ISO 14001 · Environment</Link>
+                  <Link to="/courses?q=45001" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">ISO 45001 · Safety</Link>
+                  <Link to="/courses?q=50001" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">ISO 50001 · Energy</Link>
+                  <Link to="/courses?q=22000" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">ISO 22000 · Food Safety</Link>
+                  <Link to="/courses?q=iatf" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">IATF 16949 · Automotive</Link>
                 </div>
                 <div className="col flex flex-col gap-1.5">
                   <h6 className="text-[11px] font-bold text-blue-600 uppercase tracking-wider mb-1">By Role &amp; Level</h6>
-                  <a onClick={() => go("/courses?f=awareness")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Awareness Training</a>
-                  <a onClick={() => go("/courses?f=auditor")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Internal Auditor</a>
-                  <a onClick={() => go("/courses?q=lead+auditor")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Lead Auditor</a>
-                  <a onClick={() => go("/courses?f=implementer")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Lead Implementer</a>
-                  <a onClick={() => go("/courses?f=exam")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Exam Preparation</a>
-                  <a onClick={() => go("/courses")} className="text-[13px] text-blue-600 font-semibold cursor-pointer py-1 transition-colors">All Courses →</a>
+                  <Link to="/courses?f=awareness" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Awareness Training</Link>
+                  <Link to="/courses?f=auditor" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Internal Auditor</Link>
+                  <Link to="/courses?q=lead+auditor" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Lead Auditor</Link>
+                  <Link to="/courses?f=implementer" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Lead Implementer</Link>
+                  <Link to="/courses?f=exam" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Exam Preparation</Link>
+                  <Link to="/courses" onClick={closeMenu} className="text-[13px] text-blue-600 font-semibold cursor-pointer py-1 transition-colors">All Courses →</Link>
                 </div>
                 <div className="col flex flex-col gap-1.5">
                   <h6 className="text-[11px] font-bold text-blue-600 uppercase tracking-wider mb-1">By Domain &amp; Delivery</h6>
-                  <a onClick={() => go("/courses?f=quality")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Quality Management</a>
-                  <a onClick={() => go("/courses?q=safety")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Safety &amp; EHS</a>
-                  <a onClick={() => go("/courses?f=environment")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Environment</a>
-                  <a onClick={() => go("/courses?q=esg")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Sustainability &amp; ESG</a>
-                  <a onClick={() => go("/courses?f=exam")} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Onsite &amp; In-House</a>
-                  <a onClick={() => go("/courses?f=exam")} className="text-[13px] font-medium text-emerald-600 cursor-pointer py-1 transition-colors">Free Courses</a>
+                  <Link to="/courses?f=quality" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Quality Management</Link>
+                  <Link to="/courses?q=safety" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Safety &amp; EHS</Link>
+                  <Link to="/courses?f=environment" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Environment</Link>
+                  <Link to="/courses?q=esg" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Sustainability &amp; ESG</Link>
+                  <Link to="/courses?f=exam" onClick={closeMenu} className="text-[13px] text-gray-700 hover:text-blue-600 cursor-pointer py-1 transition-colors">Onsite &amp; In-House</Link>
+                  <Link to="/courses?f=exam" onClick={closeMenu} className="text-[13px] font-medium text-emerald-700 cursor-pointer py-1 transition-colors">Free Courses</Link>
                 </div>
               </div>
             </div>
@@ -92,10 +96,11 @@ export default function NavBar({ active: propActive }) {
 
           {/* Search Box - Desktop / Tablet */}
           <div className="search hidden md:flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-full px-3.5 py-1.5 max-w-xs flex-1">
-            <span className="text-gray-400 text-sm">⌕</span>
+            <span className="text-gray-400 text-sm" aria-hidden="true">⌕</span>
             <input
               type="text"
               placeholder="Search courses…"
+              aria-label="Search courses"
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
               onKeyDown={handleSearchSubmit}
@@ -105,25 +110,18 @@ export default function NavBar({ active: propActive }) {
 
           {/* Right Links & Action - Desktop */}
           <div className="hidden lg:flex items-center gap-5">
-            <a className={`text-[14px] font-medium transition-colors cursor-pointer ${active === "resources" ? "text-[#0096FF] font-semibold" : "text-gray-700 hover:text-[#0096FF]"}`} onClick={() => go("/resources")}>Resources</a>
-            <a className={`text-[14px] font-medium transition-colors cursor-pointer ${active === "blog" ? "text-[#0096FF] font-semibold" : "text-gray-700 hover:text-[#0096FF]"}`} onClick={() => go("/blog")}>Blog</a>
-            <a className={`text-[14px] font-medium transition-colors cursor-pointer ${active === "community" ? "text-[#0096FF] font-semibold" : "text-gray-700 hover:text-[#0096FF]"}`} onClick={() => go("/community")}>Community</a>
-            <a className={`text-[14px] font-medium transition-colors cursor-pointer ${active === "contact" ? "text-[#0096FF] font-semibold" : "text-gray-700 hover:text-[#0096FF]"}`} onClick={() => go("/contact")}>Contact</a>
+            <Link to="/resources" onClick={closeMenu} className={`text-[14px] font-medium transition-colors cursor-pointer ${active === "resources" ? "text-[#0069B8] font-semibold" : "text-gray-700 hover:text-[#0069B8]"}`}>Resources</Link>
+            <Link to="/blog" onClick={closeMenu} className={`text-[14px] font-medium transition-colors cursor-pointer ${active === "blog" ? "text-[#0069B8] font-semibold" : "text-gray-700 hover:text-[#0069B8]"}`}>Blog</Link>
+            <Link to="/community" onClick={closeMenu} className={`text-[14px] font-medium transition-colors cursor-pointer ${active === "community" ? "text-[#0069B8] font-semibold" : "text-gray-700 hover:text-[#0069B8]"}`}>Community</Link>
+            <Link to="/contact" onClick={closeMenu} className={`text-[14px] font-medium transition-colors cursor-pointer ${active === "contact" ? "text-[#0069B8] font-semibold" : "text-gray-700 hover:text-[#0069B8]"}`}>Contact</Link>
 
             <div className="bar-cta">
-              {/* <button
+              <Link
+                to="/coming-soon"
                 className="btn btn-energy py-2 px-4 rounded-xl text-[13px] font-semibold transition-all shadow-xs cursor-pointer"
-                onClick={() => go(isAuthenticated ? "/portal" : "/login")}
               >
                 Enter community
-              </button> */}
-              <button
-                className="btn btn-energy py-2 px-4 rounded-xl text-[13px] font-semibold transition-all shadow-xs cursor-pointer"
-                onClick={() => nav("/coming-soon")}
-                // onClick={() => nav("/login")}
-              >
-                Enter community
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -134,14 +132,15 @@ export default function NavBar({ active: propActive }) {
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="flex items-center justify-center lg:!hidden p-2 rounded-lg text-gray-700 hover:text-gray-900 hover:bg-gray-100 transition-colors cursor-pointer"
             aria-label="Toggle Navigation Menu"
+            aria-expanded={mobileMenuOpen}
           >
 
             {mobileMenuOpen ? (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             ) : (
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             )}
@@ -163,14 +162,15 @@ export default function NavBar({ active: propActive }) {
             {/* Drawer Header */}
             <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-4">
               <div className="flex items-center my-auto">
-                <img src={logo} alt="eGrowth India" className="h-7 sm:h-8 w-auto object-contain my-auto" />
+                <img src={logo} alt="eGrowth India" width={320} height={48} className="h-7 sm:h-8 w-auto object-contain my-auto" />
               </div>
               <button
                 type="button"
                 onClick={() => setMobileMenuOpen(false)}
+                aria-label="Close Navigation Menu"
                 className="p-1.5 rounded-full text-gray-500 hover:text-gray-800 hover:bg-gray-100 cursor-pointer transition-colors"
               >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -178,10 +178,11 @@ export default function NavBar({ active: propActive }) {
 
             {/* Mobile Search */}
             <div className="flex items-center gap-2 bg-gray-100 rounded-xl px-3.5 py-2 mb-4">
-              <span className="text-gray-400 text-sm">⌕</span>
+              <span className="text-gray-400 text-sm" aria-hidden="true">⌕</span>
               <input
                 type="text"
                 placeholder="Search courses…"
+                aria-label="Search courses"
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
                 onKeyDown={handleSearchSubmit}
@@ -205,67 +206,62 @@ export default function NavBar({ active: propActive }) {
                 {coursesExpanded && (
                   <div className="pl-4 pr-2 py-2 flex flex-col gap-2 bg-gray-50 rounded-xl my-1 text-[13px]">
                     <div className="font-bold text-blue-600 text-[11px] uppercase tracking-wider">ISO Standards</div>
-                    <a onClick={() => go("/courses?q=9001")} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">ISO 9001 · Quality</a>
-                    <a onClick={() => go("/courses?q=14001")} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">ISO 14001 · Environment</a>
-                    <a onClick={() => go("/courses?q=45001")} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">ISO 45001 · Safety</a>
-                    <a onClick={() => go("/courses?q=50001")} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">ISO 50001 · Energy</a>
+                    <Link to="/courses?q=9001" onClick={closeMenu} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">ISO 9001 · Quality</Link>
+                    <Link to="/courses?q=14001" onClick={closeMenu} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">ISO 14001 · Environment</Link>
+                    <Link to="/courses?q=45001" onClick={closeMenu} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">ISO 45001 · Safety</Link>
+                    <Link to="/courses?q=50001" onClick={closeMenu} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">ISO 50001 · Energy</Link>
 
                     <div className="font-bold text-blue-600 text-[11px] uppercase tracking-wider mt-2">By Level</div>
-                    <a onClick={() => go("/courses?f=awareness")} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">Awareness Training</a>
-                    <a onClick={() => go("/courses?f=auditor")} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">Internal Auditor</a>
-                    <a onClick={() => go("/courses?q=lead+auditor")} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">Lead Auditor</a>
-                    <a onClick={() => go("/courses")} className="py-1 font-semibold text-blue-600 cursor-pointer mt-1">All Courses →</a>
+                    <Link to="/courses?f=awareness" onClick={closeMenu} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">Awareness Training</Link>
+                    <Link to="/courses?f=auditor" onClick={closeMenu} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">Internal Auditor</Link>
+                    <Link to="/courses?q=lead+auditor" onClick={closeMenu} className="py-1 text-gray-600 hover:text-blue-600 cursor-pointer">Lead Auditor</Link>
+                    <Link to="/courses" onClick={closeMenu} className="py-1 font-semibold text-blue-600 cursor-pointer mt-1">All Courses →</Link>
                   </div>
                 )}
               </div>
 
-              <a
-                onClick={() => go("/resources")}
+              <Link
+                to="/resources"
+                onClick={closeMenu}
                 className={`py-2.5 px-3 rounded-lg hover:bg-gray-50 cursor-pointer ${active === "resources" ? "text-blue-600 font-semibold" : ""}`}
               >
                 Resources
-              </a>
+              </Link>
 
-              <a
-                onClick={() => go("/blog")}
+              <Link
+                to="/blog"
+                onClick={closeMenu}
                 className={`py-2.5 px-3 rounded-lg hover:bg-gray-50 cursor-pointer ${active === "blog" ? "text-blue-600 font-semibold" : ""}`}
               >
                 Blog
-              </a>
+              </Link>
 
-              <a
-                onClick={() => go("/community")}
+              <Link
+                to="/community"
+                onClick={closeMenu}
                 className={`py-2.5 px-3 rounded-lg hover:bg-gray-50 cursor-pointer ${active === "community" ? "text-blue-600 font-semibold" : ""}`}
               >
                 Community
-              </a>
+              </Link>
 
-              <a
-                onClick={() => go("/contact")}
+              <Link
+                to="/contact"
+                onClick={closeMenu}
                 className={`py-2.5 px-3 rounded-lg hover:bg-gray-50 cursor-pointer ${active === "contact" ? "text-blue-600 font-semibold" : ""}`}
               >
                 Contact
-              </a>
+              </Link>
             </div>
 
             {/* Mobile Actions Footer */}
             <div className="mt-auto pt-5 border-t  border-gray-100 flex flex-col gap-3">
-              <button
+              <Link
+                to="/coming-soon"
+                onClick={closeMenu}
                 className="btn btn-energy w-1/2  py-3 rounded-xl font-semibold text-[14px] text-center cursor-pointer"
-                onClick={() => go("/coming-soon")}
-              // onClick={() => go("/coming-soon")}
               >
                 Enter community
-              </button>
-
-              {/* {isAuthenticated && (
-                <button
-                  onClick={handleLogout}
-                  className="w-full py-2.5 rounded-xl border border-red-200 text-red-600 hover:bg-red-50 text-[13px] font-medium cursor-pointer"
-                >
-                  Sign Out
-                </button>
-              )} */}
+              </Link>
             </div>
           </div>
         </div>
@@ -274,13 +270,13 @@ export default function NavBar({ active: propActive }) {
       {/* Responsive Category Sub-Bar */}
       <div className="catbar bg-gray-50 border-b border-gray-100 py-1.5">
         <div className="wrap catbar-in flex items-center gap-2 overflow-x-auto scrollbar-none max-w-7xl mx-auto px-4">
-          <a onClick={() => go("/courses")} className="cursor-pointer shrink-0">All courses</a>
-          <a onClick={() => go("/courses?f=awareness")} className="cursor-pointer shrink-0">Awareness</a>
-          <a onClick={() => go("/courses?f=auditor")} className="cursor-pointer shrink-0">Internal Auditor</a>
-          <a onClick={() => go("/courses?f=implementer")} className="cursor-pointer shrink-0">Lead Implementer</a>
-          <a onClick={() => go("/courses?f=environment")} className="cursor-pointer shrink-0">Environmental</a>
-          <a onClick={() => go("/courses?f=exam")} className="cursor-pointer shrink-0">Exam Prep</a>
-          <a onClick={() => go("/courses?f=quality")} className="cursor-pointer shrink-0">Quality</a>
+          <Link to="/courses" onClick={closeMenu} className="cursor-pointer shrink-0">All courses</Link>
+          <Link to="/courses?f=awareness" onClick={closeMenu} className="cursor-pointer shrink-0">Awareness</Link>
+          <Link to="/courses?f=auditor" onClick={closeMenu} className="cursor-pointer shrink-0">Internal Auditor</Link>
+          <Link to="/courses?f=implementer" onClick={closeMenu} className="cursor-pointer shrink-0">Lead Implementer</Link>
+          <Link to="/courses?f=environment" onClick={closeMenu} className="cursor-pointer shrink-0">Environmental</Link>
+          <Link to="/courses?f=exam" onClick={closeMenu} className="cursor-pointer shrink-0">Exam Prep</Link>
+          <Link to="/courses?f=quality" onClick={closeMenu} className="cursor-pointer shrink-0">Quality</Link>
         </div>
       </div>
     </>

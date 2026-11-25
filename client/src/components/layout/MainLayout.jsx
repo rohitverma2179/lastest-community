@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
-import Header from './Header/Header';
 import Footer from './Footer';
+
+const CommunityShell = React.lazy(() => import('./CommunityShell'));
 
 /**
  * MainLayout renders the global Header/NavBar and Footer, 
@@ -13,9 +14,13 @@ import Footer from './Footer';
  */
 export default function MainLayout({ children }) {
   const { pathname } = useLocation();
+  const prevPathname = useRef(pathname);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (prevPathname.current !== pathname) {
+      prevPathname.current = pathname;
+      window.scrollTo(0, 0);
+    }
   }, [pathname]);
 
   const isCommunityRoute =
@@ -29,12 +34,9 @@ export default function MainLayout({ children }) {
 
   if (isCommunityRoute) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#f3f4f6]">
-        <Header />
-        <main className="flex-1 flex flex-col w-full max-w-[1400px] 2xl:max-w-[1600px] 3xl:max-w-[1850px] mx-auto px-3 sm:px-4 md:px-6">
-          {children || <Outlet />}
-        </main>
-      </div>
+      <React.Suspense fallback={<div className="min-h-screen bg-[#f3f4f6]" />}>
+        <CommunityShell>{children || <Outlet />}</CommunityShell>
+      </React.Suspense>
     );
   }
 

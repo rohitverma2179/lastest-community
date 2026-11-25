@@ -1,6 +1,7 @@
 'use client';
 
 import React from "react";
+import "../styles/portal.css";
 import { ProfileCard, QuickMenu, LearnCard, InviteCard } from "../components/layout/LeftSidebar";
 import EventHeaderBanner from "../components/events/EventHeaderBanner";
 import EventFilterTabs from "../components/events/EventFilterTabs";

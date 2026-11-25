@@ -1,4 +1,5 @@
 import BlogDetailPage from '@/pages/BlogDetailPage';
+import RouteToaster from '@/components/layout/RouteToaster';
 import { BLOGS } from '@/data/blog';
 
 export function generateStaticParams() {
@@ -6,5 +7,10 @@ export function generateStaticParams() {
 }
 
 export default function Page() {
-  return <BlogDetailPage />;
+  return (
+    <>
+      <RouteToaster />
+      <BlogDetailPage />
+    </>
+  );
 }

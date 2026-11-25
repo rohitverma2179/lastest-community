@@ -1,8 +1,8 @@
 import '../index.css';
-import { Providers } from './providers';
 import Script from 'next/script';
 
 export const metadata = {
+  metadataBase: new URL('https://egrowthindia.com'),
   title: 'eGrowthIndia',
   description: 'eGrowthIndia - Global Community for QHSE & ESG Professionals',
   icons: {
@@ -16,29 +16,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <head>
-        {/* Google Tag Manager */}
-        <Script id="gtm-script" strategy="afterInteractive">
-          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-          new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-          j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-          'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-          })(window,document,'script','dataLayer','GTM-TKFF333D');`}
-        </Script>
-        {/* Google tag (gtag.js) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-PZKX5ZT8S8"
-          strategy="afterInteractive"
-        />
-        <Script id="gtag-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-PZKX5ZT8S8');
-          `}
-        </Script>
-      </head>
+      <head />
       <body>
         <noscript>
           <iframe
@@ -48,7 +26,39 @@ export default function RootLayout({ children }) {
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        <Providers>{children}</Providers>
+        {children}
+        <Script id="delayed-analytics" strategy="afterInteractive">
+          {`
+            (function() {
+              if (window.__egAnalyticsLoaded) return;
+              var loaded = false;
+              function loadAnalytics() {
+                if (loaded) return;
+                loaded = true;
+                window.__egAnalyticsLoaded = true;
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
+                function gtag(){window.dataLayer.push(arguments);}
+                window.gtag = window.gtag || gtag;
+                gtag('js', new Date());
+                gtag('config', 'G-PZKX5ZT8S8');
+                var gtm = document.createElement('script');
+                gtm.async = true;
+                gtm.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-TKFF333D';
+                document.head.appendChild(gtm);
+                var ga = document.createElement('script');
+                ga.async = true;
+                ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-PZKX5ZT8S8';
+                document.head.appendChild(ga);
+              }
+              var events = ['pointerdown', 'keydown', 'scroll', 'touchstart', 'mousemove'];
+              events.forEach(function(evt) {
+                window.addEventListener(evt, loadAnalytics, { once: true, passive: true });
+              });
+              setTimeout(loadAnalytics, 15000);
+            })();
+          `}
+        </Script>
       </body>
     </html>
   );
